@@ -2,6 +2,7 @@
 
 SRCS=\
 	main.go \
+	list.go \
 
 run: $(SRCS)
 	go $@ $?
