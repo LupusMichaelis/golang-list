@@ -10,10 +10,10 @@ type List struct {
 
 type Node struct {
 	next    *Node
-	payload string
+	payload interface{}
 }
 
-func (list *List) Add(payload string) {
+func (list *List) Add(payload interface{}) {
 	var newNode = &Node{payload: payload}
 
 	if list.first != nil {
@@ -61,7 +61,7 @@ func (list *List) Reverse() {
 }
 
 func (node *Node) String() (output string) {
-	output = fmt.Sprintf("'%s' ", node.payload)
+	output = fmt.Sprintf("'%v' ", node.payload)
 
 	if node.next != nil {
 		output += node.next.String()

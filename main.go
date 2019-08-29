@@ -8,14 +8,31 @@ import (
 func main() {
 	args := os.Args
 
-	var list = List{nil}
+	var argList = List{nil}
 	for _, arg := range args {
-		list.Add(arg)
+		argList.Add(arg)
 	}
 
-	fmt.Println(&list)
-	list.Reverse()
-	fmt.Println(&list)
+	fmt.Println(&argList)
+	argList.Reverse()
+	fmt.Println(&argList)
 
-	return
+	var numberList = List{nil}
+	for _, arg := range []int{1, 2, 3, 4} {
+		numberList.Add(arg)
+	}
+
+	fmt.Println(&numberList)
+	numberList.Reverse()
+	fmt.Println(&numberList)
+
+	var anyList = List{nil}
+	anyList.Add(1)
+	anyList.Add("Yolo")
+	anyList.Add(3.5)
+	anyList.Add(0.5 + 1i + 3.5 - 2i)
+
+	fmt.Println(&anyList)
+	anyList.Reverse()
+	fmt.Println(&anyList)
 }
