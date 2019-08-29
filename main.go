@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	"lupusmic.org/golang-list/list"
 	"os"
 )
 
 func main() {
-	var argList = List{nil}
+	var argList = list.List{}
 	argList.AddMany(os.Args[1:]...)
 
 	fmt.Println(argList)
