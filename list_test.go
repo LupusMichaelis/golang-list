@@ -6,13 +6,13 @@ import (
 
 func TestList(t *testing.T) {
 	cases := []struct {
-		in []string
+		in   []string
 		want string
 	}{
-		{ []string{}, "List []" },
-		{ []string{"first"}, "List ['first']" },
-		{ []string{"first", "second"}, "List ['second','first']" },
-		{ []string{"first", "second", "third"}, "List ['third','second','first']" },
+		{[]string{}, "List []"},
+		{[]string{"first"}, "List ['first']"},
+		{[]string{"first", "second"}, "List ['second','first']"},
+		{[]string{"first", "second", "third"}, "List ['third','second','first']"},
 	}
 
 	for _, esac := range cases {
@@ -30,13 +30,13 @@ func TestList(t *testing.T) {
 
 func TestReverse(t *testing.T) {
 	cases := []struct {
-		in []string
+		in   []string
 		want string
 	}{
-		{ []string{}, "List []" },
-		{ []string{"first"}, "List ['first']" },
-		{ []string{"first", "second"}, "List ['first','second']" },
-		{ []string{"first", "second", "third"}, "List ['first','second','third']" },
+		{[]string{}, "List []"},
+		{[]string{"first"}, "List ['first']"},
+		{[]string{"first", "second"}, "List ['first','second']"},
+		{[]string{"first", "second", "third"}, "List ['first','second','third']"},
 	}
 
 	for _, esac := range cases {
