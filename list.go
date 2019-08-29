@@ -13,6 +13,14 @@ type Node struct {
 	payload interface{}
 }
 
+// XXX find a way to provide good interface for any type of payload
+// XXX see issue with https://github.com/golang/go/wiki/InterfaceSlice
+func (list *List) AddMany(payloadList ...string) {
+	for _, payload := range payloadList {
+		list.Add(payload)
+	}
+}
+
 func (list *List) Add(payload interface{}) {
 	var newNode = &Node{payload: payload}
 
@@ -61,9 +69,10 @@ func (list *List) Reverse() {
 }
 
 func (node Node) String() (output string) {
-	output = fmt.Sprintf("'%v' ", node.payload)
+	output = fmt.Sprintf("'%v'", node.payload)
 
 	if node.next != nil {
+		output += ","
 		output += node.next.String()
 	}
 
