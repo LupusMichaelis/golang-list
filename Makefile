@@ -4,8 +4,14 @@ SRCS=\
 	main.go \
 	list.go \
 
+TESTS=\
+	list_test.go \
+
 run: $(SRCS)
 	go $@ $?
 
-format: $(SRCS)
+test: $(TESTS) $(SRCS)
+	go test -v
+
+format: $(SRCS) $(TESTS)
 	go fmt $?
