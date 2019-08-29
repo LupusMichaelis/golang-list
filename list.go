@@ -23,7 +23,7 @@ func (list *List) Add(payload interface{}) {
 	list.first = newNode
 }
 
-func (list *List) String() (output string) {
+func (list List) String() (output string) {
 	output = fmt.Sprintf("List [")
 
 	if list.first != nil {
@@ -60,7 +60,7 @@ func (list *List) Reverse() {
 	}
 }
 
-func (node *Node) String() (output string) {
+func (node Node) String() (output string) {
 	output = fmt.Sprintf("'%v' ", node.payload)
 
 	if node.next != nil {
