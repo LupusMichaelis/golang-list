@@ -13,6 +13,12 @@ type Node struct {
 	payload string
 }
 
+type CherryNotPopped struct{}
+
+func (CherryNotPopped) Error() string {
+	return "Cherry not popped"
+}
+
 // XXX find a way to provide good interface for any type of payload
 // XXX see issue with https://github.com/golang/go/wiki/InterfaceSlice
 func (list *List) AddMany(payloadList ...string) {
@@ -76,5 +82,18 @@ func (node Node) String() (output string) {
 		output += node.next.String()
 	}
 
+	return
+}
+
+func (list *List) Pop() (popped string, err error) {
+	if list.first == nil {
+		err = CherryNotPopped{}
+		return
+	}
+
+	var first = list.first
+	list.first = first.next
+
+	popped = first.payload
 	return
 }
