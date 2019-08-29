@@ -10,7 +10,7 @@ type List struct {
 
 type Node struct {
 	next    *Node
-	payload interface{}
+	payload string
 }
 
 // XXX find a way to provide good interface for any type of payload
@@ -21,7 +21,7 @@ func (list *List) AddMany(payloadList ...string) {
 	}
 }
 
-func (list *List) Add(payload interface{}) {
+func (list *List) Add(payload string) {
 	var newNode = &Node{payload: payload}
 
 	if list.first != nil {
