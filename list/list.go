@@ -27,6 +27,11 @@ func (list *List) AddMany(payloadList ...string) {
 	}
 }
 
+func Build(payloadList ...string) (list List) {
+	list.AddMany(payloadList...)
+	return
+}
+
 func (list *List) Add(payload string) {
 	var newNode = &Node{payload: payload}
 
