@@ -1,33 +1,42 @@
 package list_test
 
 import (
+	behave "github.com/onsi/ginkgo"
+	assert "github.com/onsi/gomega"
 	listModule "lupusmic.org/golang-list/list"
 	"testing"
 )
 
 func TestList(t *testing.T) {
-	cases := []struct {
-		candidate []string
-		expected  string
-	}{
-		{[]string{}, "List []"},
-		{[]string{"first"}, "List ['first']"},
-		{[]string{"first", "second"}, "List ['second','first']"},
-		{[]string{"first", "second", "third"}, "List ['third','second','first']"},
-	}
-
-	for _, esac := range cases {
-		var list = listModule.List{}
-		list.AddMany(esac.candidate...)
-
-		var got = list.String()
-
-		if got != esac.expected {
-			t.Errorf("Add elements of (%q) == %q, expected %q", esac.candidate, got, esac.expected)
-		}
-	}
-
+	assert.RegisterFailHandler(behave.Fail)
+	behave.RunSpecs(t, "Calculator Suite")
 }
+
+var _ = behave.Describe("List", func() {
+	behave.Context("List building", func() {
+		behave.It(
+			`
+			must print 'List' followed by a space, a bracket surrounded list of element
+			surrounded with quotes and separated by commas
+			`, func() {
+				cases := []struct {
+					candidate []string
+					expected  string
+				}{
+					{[]string{}, "List []"},
+					{[]string{"first"}, "List ['first']"},
+					{[]string{"first", "second"}, "List ['second','first']"},
+					{[]string{"first", "second", "third"}, "List ['third','second','first']"},
+				}
+
+				for _, esac := range cases {
+					var candidate = listModule.Build(esac.candidate...)
+
+					assert.Expect(candidate.String()).Should(assert.Equal(esac.expected))
+				}
+			})
+	})
+})
 
 func TestReverse(t *testing.T) {
 	cases := []struct {
