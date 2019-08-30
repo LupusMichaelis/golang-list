@@ -1,6 +1,7 @@
-package list
+package list_test
 
 import (
+	"lupusmic.org/golang-list/list"
 	"testing"
 )
 
@@ -16,7 +17,7 @@ func TestList(t *testing.T) {
 	}
 
 	for _, esac := range cases {
-		var list = List{nil}
+		var list = list.List{}
 		list.AddMany(esac.candidate...)
 
 		var got = list.String()
@@ -40,7 +41,7 @@ func TestReverse(t *testing.T) {
 	}
 
 	for _, esac := range cases {
-		var list = List{nil}
+		var list = list.List{}
 		list.AddMany(esac.candidate...)
 		list.Reverse()
 
@@ -60,14 +61,14 @@ func TestReverseAndPop(t *testing.T) {
 		expectedPayload string
 		expectedErr     error
 	}{
-		{[]string{}, "List []", "", CherryNotPopped{}},
+		{[]string{}, "List []", "", list.CherryNotPopped{}},
 		{[]string{"cherry"}, "List []", "cherry", nil},
 		{[]string{"cherry", "plum"}, "List ['plum']", "cherry", nil},
 		{[]string{"cherry", "apricot", "pear"}, "List ['apricot','pear']", "cherry", nil},
 	}
 
 	for _, esac := range cases {
-		var list = List{nil}
+		var list = list.List{}
 		list.AddMany(esac.candidate...)
 		list.Reverse()
 
