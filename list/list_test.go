@@ -36,32 +36,31 @@ var _ = behave.Describe("List", func() {
 				}
 			})
 	})
+
+	behave.Context("List reversing", func() {
+		behave.It(
+			`
+			must print a reversed list
+			`, func() {
+				cases := []struct {
+					candidate []string
+					expected  string
+				}{
+					{[]string{}, "List []"},
+					{[]string{"first"}, "List ['first']"},
+					{[]string{"first", "second"}, "List ['first','second']"},
+					{[]string{"first", "second", "third"}, "List ['first','second','third']"},
+				}
+
+				for _, esac := range cases {
+					var candidate = listModule.Build(esac.candidate...)
+					candidate.Reverse()
+
+					assert.Expect(candidate.String()).Should(assert.Equal(esac.expected))
+				}
+			})
+	})
 })
-
-func TestReverse(t *testing.T) {
-	cases := []struct {
-		candidate []string
-		expected  string
-	}{
-		{[]string{}, "List []"},
-		{[]string{"first"}, "List ['first']"},
-		{[]string{"first", "second"}, "List ['first','second']"},
-		{[]string{"first", "second", "third"}, "List ['first','second','third']"},
-	}
-
-	for _, esac := range cases {
-		var list = listModule.List{}
-		list.AddMany(esac.candidate...)
-		list.Reverse()
-
-		var got = list.String()
-
-		if got != esac.expected {
-			t.Errorf("Reverse(%q) == %q, expected %q", esac.candidate, got, esac.expected)
-		}
-	}
-
-}
 
 func TestReverseAndPop(t *testing.T) {
 	cases := []struct {
