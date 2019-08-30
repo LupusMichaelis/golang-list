@@ -60,39 +60,40 @@ var _ = behave.Describe("List", func() {
 				}
 			})
 	})
+
+	behave.Context("Reverse list and pop", func() {
+		behave.It(
+			`
+			must print a reversed list minus the first inserted element
+			`, func() {
+				cases := []struct {
+					candidate       []string
+					expected        string
+					expectedPayload string
+					expectedErr     error
+				}{
+					{[]string{}, "List []", "", listModule.CherryNotPopped{}},
+					{[]string{"cherry"}, "List []", "cherry", nil},
+					{[]string{"cherry", "plum"}, "List ['plum']", "cherry", nil},
+					{[]string{"cherry", "apricot", "pear"}, "List ['apricot','pear']", "cherry", nil},
+				}
+
+				for _, esac := range cases {
+
+					var candidate = listModule.List{}
+					candidate.AddMany(esac.candidate...)
+					candidate.Reverse()
+
+					gotPopped, err := candidate.Pop()
+					if nil != esac.expectedErr {
+						assert.Expect(err).Should(assert.Equal(esac.expectedErr))
+					} else {
+						assert.Expect(err).Should(assert.BeNil())
+					}
+
+					assert.Expect(gotPopped).Should(assert.Equal(esac.expectedPayload))
+					assert.Expect(candidate.String()).Should(assert.Equal(esac.expected))
+				}
+			})
+	})
 })
-
-func TestReverseAndPop(t *testing.T) {
-	cases := []struct {
-		candidate       []string
-		expected        string
-		expectedPayload string
-		expectedErr     error
-	}{
-		{[]string{}, "List []", "", listModule.CherryNotPopped{}},
-		{[]string{"cherry"}, "List []", "cherry", nil},
-		{[]string{"cherry", "plum"}, "List ['plum']", "cherry", nil},
-		{[]string{"cherry", "apricot", "pear"}, "List ['apricot','pear']", "cherry", nil},
-	}
-
-	for _, esac := range cases {
-		var list = listModule.List{}
-		list.AddMany(esac.candidate...)
-		list.Reverse()
-
-		gotPopped, err := list.Pop()
-		if err != esac.expectedErr {
-			t.Errorf("Pop(%q) got %q, expected %q", esac.candidate, err, esac.expectedErr)
-		}
-
-		if gotPopped != esac.expectedPayload {
-			t.Errorf("Pop(%q) got %q, expected %q", esac.candidate, gotPopped, esac.expectedPayload)
-		}
-
-		var got = list.String()
-		if got != esac.expected {
-			t.Errorf("PopAndReverse(%q) == %q, expected %q", esac.candidate, got, esac.expected)
-		}
-	}
-
-}
