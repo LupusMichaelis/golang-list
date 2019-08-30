@@ -13,7 +13,11 @@ SRCS=\
 TESTS=\
 	list/list_test.go \
 
-run: $(SRCS)
+TESTDEPS=\
+	github.com/onsi/ginkgo \
+	github.com/onsi/gomega \
+
+run: host $(SRCS)
 	go $@ .
 
 test: $(TESTS) $(SRCS)
@@ -23,4 +27,5 @@ format: $(SRCS) $(TESTS)
 	go fmt ./...
 
 host:
+	go get $(TESTDEPS)
 	-@ln -s $(PWD) $(HOME)/.local/go-lang-root/src/$(VENDOR)/
