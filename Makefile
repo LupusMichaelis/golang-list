@@ -23,6 +23,6 @@ format: $(SRCS) $(TESTS)
 	go fmt ./...
 
 host:
+	test -h $(GOPATH)/src/$(VENDOR)/$(notdir $(PWD)) \
+		|| ln -s $(PWD) $(GOPATH)/src/$(VENDOR)/
 	go get -t ./...
-	test -h $(GOROOT)/src/$(VENDOR)/$(notdir $(PWD)) \
-		|| ln -s $(PWD) $(GOROOT)/src/$(VENDOR)/
